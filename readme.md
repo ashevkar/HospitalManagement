@@ -18,20 +18,20 @@
 
 
 1. Your understanding of the difference between the forward and redirect operations.
-The main difference between forward and redirect operations lies in how they handle the request-response cycle. A redirect initiates a completely new cycle, resulting in a loss of state from the original request. To preserve or transfer information during a redirect, additional mechanisms like query parameters or session management are needed. On the other hand, a forward operation passes control to another server-side resource without starting a new cycle. It retains the state in the request or response objects, ensuring data persistence throughout the forwarding process.
+>The main difference between forward and redirect operations lies in how they handle the request-response cycle. A redirect initiates a completely new cycle, resulting in a loss of state from the original request. To preserve or transfer information during a redirect, additional mechanisms like query parameters or session management are needed. On the other hand, a forward operation passes control to another server-side resource without starting a new cycle. It retains the state in the request or response objects, ensuring data persistence throughout the forwarding process.
 
 
 2. How would you be validating user submissions without the Bean Validation API
 standard?
-Without the Bean Validation API, I would implement custom validation logic tailored to the project's requirements. I’d create specific validation classes to address missing data, checking for null or empty strings. Additionally, I'd ensure proper validation for malformed data, verifying values are in the correct format.
+>Without the Bean Validation API, I would implement custom validation logic tailored to the project's requirements. I’d create specific validation classes to address missing data, checking for null or empty strings. Additionally, I'd ensure proper validation for malformed data, verifying values are in the correct format.
 
 
 3. How do you think this approach would scale to a real application with 100's of
 entities?
-For a large-scale application with hundreds of entities, a custom validation approach should prioritize modular and reusable design, efficiency optimization, parallel processing, and clear documentation. However, challenges may arise in scalability due to potential maintenance issues and code duplication. In contrast, the Bean Validation API provides a standardized and efficient solution, promoting code reusability and consistency, making it a more suitable choice for larger-scale applications.
+>For a large-scale application with hundreds of entities, a custom validation approach should prioritize modular and reusable design, efficiency optimization, parallel processing, and clear documentation. However, challenges may arise in scalability due to potential maintenance issues and code duplication. In contrast, the Bean Validation API provides a standardized and efficient solution, promoting code reusability and consistency, making it a more suitable choice for larger-scale applications.
 
 
 4. Why didn't we need to include any additional dependencies (i.e. Bean Validation,
 JDBC) in this project?1
-In this project, Jakarta Enterprise 10 dependency is automatically included with a scope "provided”. The “provided” means the libraries that are underneath the Jakarta enterprise umbrella are now included as dependencies like Jakarta servlet, JSP, and JSTL, so all the dependencies are included in our project. The "provided" scope indicates that these dependencies are included in the project during compilation, development, and testing. Maven includes them in the artifact, but at runtime, they are supplied by the Payara server. As a result, there's no need to include additional dependencies, such as Bean Validation and JDBC, as they are bundled with the application and provided by the application server during runtime.
+>In this project, Jakarta Enterprise 10 dependency is automatically included with a scope "provided”. The “provided” means the libraries that are underneath the Jakarta enterprise umbrella are now included as dependencies like Jakarta servlet, JSP, and JSTL, so all the dependencies are included in our project. The "provided" scope indicates that these dependencies are included in the project during compilation, development, and testing. Maven includes them in the artifact, but at runtime, they are supplied by the Payara server. As a result, there's no need to include additional dependencies, such as Bean Validation and JDBC, as they are bundled with the application and provided by the application server during runtime.
 
