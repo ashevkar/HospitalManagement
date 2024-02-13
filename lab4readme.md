@@ -11,5 +11,5 @@
 >mvn clean test
 ![terminal2](https://github.com/itmd4515/itmd4515-s24-fp-ashevkar/assets/152341739/26cb24e4-e080-4329-8e98-5b9bc17a62eb)
 
->Performed CRUD operation
+>Performed CRUD operation(create, read, update and delete)
 <img width="792" alt="CRUD" src="https://github.com/itmd4515/itmd4515-s24-fp-ashevkar/assets/152341739/40c6daa6-f808-4122-8f25-74dff73d6b94">
