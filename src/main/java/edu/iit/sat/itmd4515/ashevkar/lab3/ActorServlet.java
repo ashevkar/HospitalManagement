@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package edu.iit.sat.itmd4515.ashevkar.web;
+package edu.iit.sat.itmd4515.ashevkar.lab3;
 
-import edu.iit.sat.itmd4515.ashevkar.domain.Actor;
 import jakarta.annotation.Resource;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;

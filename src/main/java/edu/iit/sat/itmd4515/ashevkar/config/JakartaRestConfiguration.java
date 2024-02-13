@@ -1,4 +1,4 @@
-package edu.iit.sat.itmd4515.ashevkar;
+package edu.iit.sat.itmd4515.ashevkar.config;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
