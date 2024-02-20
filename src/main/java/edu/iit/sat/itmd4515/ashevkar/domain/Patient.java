@@ -11,11 +11,15 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -27,36 +31,96 @@ import java.util.Objects;
 public class Patient {
     
     @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)   
     @Column(name = "PATIENT_ID")
     private Long id;
-    
-    @NotBlank           //bean validation
+    //bean validation
+    @NotBlank           
     @Column(name = "PATIENT_NAME", nullable = false, unique = true)    
     private String name;
-    
-    @PastOrPresent          //bean validation
-    @Column(name = "PATIENT_BIRTHDAY")   
-//    @Temporal(TemporalType.DATE)
+    //bean validation
+    @PastOrPresent          
+    @Column(name = "PATIENT_BIRTHDATE")   
     private LocalDate birthDate;
 
     @Column(name = "PATIENT_GENDER")    
     @Enumerated(EnumType.STRING)
     private PatientGender gender;
+    
+//    M:M bidirectional relationship b/w patient & hospital
+//    Patient is the owning of the relationship
+    @ManyToMany
+    @JoinTable(name = "PATIENT_HOSPITALS",
+            joinColumns = @JoinColumn(name = "PATIENT_ID"),
+            inverseJoinColumns = @JoinColumn(name = "HOSPITAL_ID"))
+    private List<Hospital> hospitals = new ArrayList<>();
+    
+    
+//    1:M/M:1 bidirectional relationship
+//    M:1 is always the owning side
+//    Appointment is the owner of this relationship
+    @OneToMany(mappedBy = "patient")
+    private List<Appointment> appointments = new ArrayList<>();
+    
+    
+    
+    
+    public void addHospital(Hospital h){
+        
+        if(! this.hospitals.contains(h)){
+            this.hospitals.add(h);
+        }
+        if(!h.getPatients().contains(this)){
+            h.getPatients().add(this);
+        }
+    }
+    public void romoveHospital(Hospital h){
+        
+        if(this.hospitals.contains(h)){
+            this.hospitals.remove(h);
+        }
+        if(h.getPatients().contains(this)){
+            h.getPatients().remove(this);
+        }
+    }
 
-    public Patient(String name, LocalDate birthDate, PatientGender gender) {
-        this.name = name;
-        this.birthDate = birthDate;
-        this.gender = gender;
-    }
-    public Patient() {
+    
+        /**
+     * Get the value of appointments
+     *
+     * @return the value of appointments
+     */
+    public List<Appointment> getAppointments() {
+        return appointments;
     }
 
-    @Override
-    public String toString() {
-        return "Patient{" + "id=" + id + ", name=" + name + ", birthDate=" + birthDate + ", gender=" + gender + '}';
+    /**
+     * Set the value of appointments
+     *
+     * @param appointments new value of appointments
+     */
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
+    }   
+
+    /**
+     * Get the value of hospitals
+     *
+     * @return the value of hospitals
+     */
+    public List<Hospital> getHospitals() {
+        return hospitals;
     }
+
+    /**
+     * Set the value of hospitals
+     *
+     * @param hospitals new value of hospitals
+     */
+    public void setHospitals(List<Hospital> hospitals) {
+        this.hospitals = hospitals;
+    }
+     
     /**
      * Get the value of gender
      *
@@ -93,7 +157,6 @@ public class Patient {
         this.birthDate = birthDate;
     }
 
-
     /**
      * Get the value of name
      *
@@ -111,7 +174,6 @@ public class Patient {
     public void setName(String name) {
         this.name = name;
     }
-
 
     /**
      * Get the value of id
@@ -131,6 +193,18 @@ public class Patient {
         this.id = id;
     }
 
+    public Patient(String name, LocalDate birthDate, PatientGender gender) {
+        this.name = name;
+        this.birthDate = birthDate;
+        this.gender = gender;
+    }
+    public Patient() {
+    }
+
+    @Override
+    public String toString() {
+        return "Patient{" + "id=" + id + ", name=" + name + ", birthDate=" + birthDate + ", gender=" + gender + '}';
+    }
     
     @Override
     public int hashCode() {
@@ -159,3 +233,4 @@ public class Patient {
         return Objects.equals(this.id, other.id);
     }
 }
+

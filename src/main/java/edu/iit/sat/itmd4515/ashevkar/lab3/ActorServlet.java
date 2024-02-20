@@ -5,12 +5,20 @@
 package edu.iit.sat.itmd4515.ashevkar.lab3;
 
 import jakarta.annotation.Resource;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.HeuristicMixedException;
+import jakarta.transaction.HeuristicRollbackException;
+import jakarta.transaction.NotSupportedException;
+import jakarta.transaction.RollbackException;
+import jakarta.transaction.SystemException;
+import jakarta.transaction.UserTransaction;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import java.io.IOException;
@@ -34,6 +42,12 @@ public class ActorServlet extends HttpServlet {
     
     @Resource(name = "java:app/jdbc/itmd4515DS")
     DataSource ds;
+    
+    @PersistenceContext(name = "itmd4515PU")
+    EntityManager em;
+    
+    @Resource
+    UserTransaction tx;
     
     private static final Logger LOG = Logger.getLogger(ActorServlet.class.getName());
 
@@ -78,7 +92,9 @@ public class ActorServlet extends HttpServlet {
         }else {
             LOG.info("Actor has Passed validation.");
             
-            createAActor(a);
+//            createAJDBCActor(a);
+            createAJPAActor(a);
+            
             
             req.setAttribute("actor", a);
             RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/confirmation.jsp");
@@ -87,9 +103,30 @@ public class ActorServlet extends HttpServlet {
 
         LOG.info("Built Actor POJO post-conversion values:\t\t" + a.toString());
     }
+    private void createAJPAActor(Actor a){
+        try {
+            tx.begin();
+            em.persist(a);
+            tx.commit();
+        } catch (NotSupportedException ex) {
+            Logger.getLogger(ActorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SystemException ex) {
+            Logger.getLogger(ActorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RollbackException ex) {
+            Logger.getLogger(ActorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HeuristicMixedException ex) {
+            Logger.getLogger(ActorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HeuristicRollbackException ex) {
+            Logger.getLogger(ActorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(ActorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalStateException ex) {
+            Logger.getLogger(ActorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     
-      private void createAActor(Actor a) {
+    private void createAJDBCActor(Actor a) {
         String query = "insert into actor "
                 + "(actor_id, first_name, last_name) "
                 + "values (?,?,?)";
