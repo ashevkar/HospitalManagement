@@ -8,14 +8,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,17 +24,9 @@ import java.util.Objects;
  * @author ashevkar
  */
 @Entity 
-//@Table(name = "AnynameYouWant")
-public class Patient {
-    
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)   
-    @Column(name = "PATIENT_ID")
-    private Long id;
-    //bean validation
-    @NotBlank           
-    @Column(name = "PATIENT_NAME", nullable = false, unique = true)    
-    private String name;
+@NamedQuery(name = "Patient.findAll", query= "select p from Patient p")
+public class Patient extends AbstractNamedEntity{
+
     //bean validation
     @PastOrPresent          
     @Column(name = "PATIENT_BIRTHDATE")   
@@ -61,8 +50,7 @@ public class Patient {
 //    Appointment is the owner of this relationship
     @OneToMany(mappedBy = "patient")
     private List<Appointment> appointments = new ArrayList<>();
-    
-    
+   
     
     
     public void addHospital(Hospital h){
@@ -74,7 +62,7 @@ public class Patient {
             h.getPatients().add(this);
         }
     }
-    public void romoveHospital(Hospital h){
+    public void removeHospital(Hospital h){
         
         if(this.hospitals.contains(h)){
             this.hospitals.remove(h);
@@ -157,41 +145,7 @@ public class Patient {
         this.birthDate = birthDate;
     }
 
-    /**
-     * Get the value of name
-     *
-     * @return the value of name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Set the value of name
-     *
-     * @param name new value of name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Get the value of id
-     *
-     * @return the value of id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * Set the value of id
-     *
-     * @param id new value of id
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
+    
 
     public Patient(String name, LocalDate birthDate, PatientGender gender) {
         this.name = name;

@@ -10,9 +10,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,6 +24,7 @@ import java.util.Objects;
  * @author ashevkar
  */
 @Entity
+@NamedQuery(name = "Doctor.findAll", query = "select d from Doctor d")
 public class Doctor {
 //    serves as the primary key.
     @Id         
@@ -45,7 +46,7 @@ public class Doctor {
     private Long contactNumber;
     
 //    temporal data type
-    @FutureOrPresent
+//    @FutureOrPresent
     @Column(name = "AVAILABLE_DATE")
     private LocalDate availableDate;
     
@@ -61,7 +62,7 @@ public class Doctor {
 //    Appointment is the owner of this relationship
     @OneToMany(mappedBy= "doctor")
     private List<Appointment> appointments = new ArrayList<>();
-        
+    
     
     /**
      * Get the value of appointments

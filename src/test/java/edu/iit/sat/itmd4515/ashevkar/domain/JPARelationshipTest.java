@@ -73,7 +73,7 @@ public class JPARelationshipTest extends AbstractJPATest {
         
 //        delete data 
         tx.begin();
-        p.romoveHospital(h);
+        p.removeHospital(h);
         em.remove(h);
         em.remove(p);
         tx.commit();

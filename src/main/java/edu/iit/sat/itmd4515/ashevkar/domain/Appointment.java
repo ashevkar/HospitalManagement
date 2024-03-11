@@ -6,11 +6,9 @@ package edu.iit.sat.itmd4515.ashevkar.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.validation.constraints.FutureOrPresent;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -21,11 +19,8 @@ import java.util.Objects;
  * @author ashevkar
  */
 @Entity 
-public class Appointment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "APPOINTMENT_ID")
-    private Long id;
+@NamedQuery(name = "Appointment.findAll", query = "select a from Appointment a")
+public class Appointment extends AbstractEntity{
     
     @FutureOrPresent
     @Column(name = "APPOINTMENT_DATE")
@@ -45,8 +40,7 @@ public class Appointment {
 //    1:M/M:1 bidirectional relationship
 //    M:1 is always the owning side
 //    Appointment is the owner of this relationship
-//    Hospital_id is the FK
-
+//    Doctor_id is the FK
     @ManyToOne
     @JoinColumn(name = "DOCTOR_ID")
     private Doctor doctor;
@@ -93,10 +87,31 @@ public class Appointment {
 
     public Appointment() {
     }
+    
+    //helper method to manage jpa
+    public void scheduleApt(Doctor d, Patient p){
+        this.doctor= d;
+        this.patient= p;
+        
+        if(!p.getAppointments().contains(this)){
+            p.getAppointments().add(this);
+        }
+        if(d.getAppointments().contains(this)){
+            d.getAppointments().add(this);
+        }
+    }
+    public void cancelApt(){
+        if(this.patient.getAppointments().contains(this)){
+            this.patient.getAppointments().remove(this);
+        }
+        if(this.doctor.getAppointments().contains(this)){
+            this.doctor.getAppointments().remove(this);
+        }
+    }
 
     @Override
     public String toString() {
-        return "Appointment{" + "id=" + id + ", date=" + date + ", time=" + time + '}';
+        return "Appointment{" + "date=" + date + ", time=" + time + ", patient=" + patient + ", doctor=" + doctor + '}';
     }
 
     @Override
@@ -143,25 +158,6 @@ public class Appointment {
      */
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-
-    /**
-     * Get the value of id
-     *
-     * @return the value of id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * Set the value of id
-     *
-     * @param id new value of id
-     */
-    public void setId(Long id) {
-        this.id = id;
     }
 
      /**

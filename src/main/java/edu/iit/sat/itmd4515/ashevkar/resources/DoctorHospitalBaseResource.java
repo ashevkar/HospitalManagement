@@ -8,13 +8,20 @@ import jakarta.ws.rs.core.Response;
  *
  * @author 
  */
-@Path("jakartaee10")
-public class JakartaEE10Resource {
+@Path("/hospitals")
+public class DoctorHospitalBaseResource {
     
     @GET
     public Response ping(){
         return Response
                 .ok("ping Jakarta EE")
+                .build();
+    }
+    @Path("/version")
+    @GET
+    public Response version(){
+        return Response
+                .ok("Accept nothing, verify & test everything! ")
                 .build();
     }
 }

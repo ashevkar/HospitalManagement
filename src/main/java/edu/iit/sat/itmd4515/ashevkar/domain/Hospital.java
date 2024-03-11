@@ -4,13 +4,13 @@
  */
 package edu.iit.sat.itmd4515.ashevkar.domain;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.NamedQuery;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -20,28 +20,24 @@ import java.util.Objects;
  * @author ashevkar
  */
 @Entity
-public class Hospital {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "HOSPITAL_ID")
-    private Long id;
-    //    bean validation   
+@XmlRootElement
+@NamedQuery(name = "Hospital.findAll", query = "select h from Hospital h")
+public class Hospital extends AbstractEntity{
+ 
     @NotBlank   
     @Column(name = "HOSPITAL_NAME")
     private String name;
 
     @Column(name = "HOSPITAL_ADDRESS")
     private String address;
-    //    bean validation   
-//    @Pattern(regexp="\\(\\d{3}\\)\\d{3}-\\d{4}")  
+
     @Column(name = "CONTACT_NUMBER")
     private Long contactNumber;
     
-    
 //    M:M bidirectional relationship b/w patient & hospital
-//    Hospital is the inverse (non-owning side of the relationship)
-//    mapped property
+//    Hospital is the inverse (non-owning side of the relationship)mapped property
     @ManyToMany(mappedBy = "hospitals")
+//    @JsonbTransient
     private List<Patient> patients = new ArrayList<>();
 
     /**
@@ -116,23 +112,6 @@ public class Hospital {
         this.name = name;
     }
     
-    /**
-     * Get the value of id
-     *
-     * @return the value of id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * Set the value of id
-     *
-     * @param id new value of id
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
     
     public Hospital(String name, String address, Long contactNumber) {
         this.name = name;
@@ -142,7 +121,6 @@ public class Hospital {
 
     public Hospital() {
     }
-    
     
 
     @Override
