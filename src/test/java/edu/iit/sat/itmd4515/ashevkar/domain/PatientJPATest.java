@@ -62,17 +62,17 @@ public class PatientJPATest extends AbstractJPATest{
     
     @Test
     public void deleteTest(){    
-//        Patient p4 = em.createQuery("select p from Patient p where p.name = 'Aishwarya'", 
-//            Patient.class).getSingleResult();
-//        
-//        tx.begin();
-//        em.remove(p4);
-//        tx.commit();
-//        
-//        //read it back from the database  
-//        Patient readBackFromDatabaseForAssertion = em.find(Patient.class, p4.getId());
-//        //assertion that it was successfully updated
-//        assertNull(readBackFromDatabaseForAssertion, "Patient should not exist in the database after deletion");
+        Patient p4 = em.createQuery("select p from Patient p where p.name = 'Aishwarya'", 
+            Patient.class).getSingleResult();
+        
+        tx.begin();
+        em.remove(p4);
+        tx.commit();
+        
+        //read it back from the database  
+        Patient readBackFromDatabaseForAssertion = em.find(Patient.class, p4.getId());
+        //assertion that it was successfully updated
+        assertNull(readBackFromDatabaseForAssertion, "Patient should not exist in the database after deletion");
     }
     
    

@@ -4,7 +4,6 @@
  */
 package edu.iit.sat.itmd4515.ashevkar.domain;
 
-import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
@@ -37,7 +36,6 @@ public class Hospital extends AbstractEntity{
 //    M:M bidirectional relationship b/w patient & hospital
 //    Hospital is the inverse (non-owning side of the relationship)mapped property
     @ManyToMany(mappedBy = "hospitals")
-//    @JsonbTransient
     private List<Patient> patients = new ArrayList<>();
 
     /**

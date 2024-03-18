@@ -21,7 +21,7 @@ public class JPARelationshipTest extends AbstractJPATest {
     public void uniDirectionalRelationshipTest(){
         
         Hospital h = new Hospital("Noble", "1740 W Taylor St, Chicago, IL 60612", 8666002273l);
-        Doctor d = new Doctor("Neel", "Cardiology", 29329772l, LocalDate.of(2024, 02, 20));
+        Doctor d = new Doctor("Neel", "Cardiology", 29329772l);
         //set the relationship
         d.setHospital(h);
         

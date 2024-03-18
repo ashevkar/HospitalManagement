@@ -38,7 +38,7 @@
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.jpa</artifactId>
             <version>4.0.2</version>
-            <scope>compile</scope>
+            <scope>test</scope>
 
         </dependency>
         

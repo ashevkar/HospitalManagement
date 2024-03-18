@@ -96,7 +96,7 @@ public class Appointment extends AbstractEntity{
         if(!p.getAppointments().contains(this)){
             p.getAppointments().add(this);
         }
-        if(d.getAppointments().contains(this)){
+        if(!d.getAppointments().contains(this)){
             d.getAppointments().add(this);
         }
     }

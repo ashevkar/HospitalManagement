@@ -14,7 +14,6 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -44,11 +43,6 @@ public class Doctor {
 //    @Pattern(regexp="\\(\\d{3}\\)\\d{3}-\\d{4}")    
     @Column(name = "CONTACT_NUMBER")
     private Long contactNumber;
-    
-//    temporal data type
-//    @FutureOrPresent
-    @Column(name = "AVAILABLE_DATE")
-    private LocalDate availableDate;
     
 //    1:1 unidirectional relationship b/w doctor and hospital
 //    Doctor is the owning side of this realtionship
@@ -98,24 +92,6 @@ public class Doctor {
      */
     public void setHospital(Hospital hospital) {
         this.hospital = hospital;
-    }
-
-    /**
-     * Get the value of availableDate
-     *
-     * @return the value of availableDate
-     */
-    public LocalDate getAvailableDate() {
-        return availableDate;
-    }
-
-    /**
-     * Set the value of availableDate
-     *
-     * @param availableDate new value of availableDate
-     */
-    public void setAvailableDate(LocalDate availableDate) {
-        this.availableDate = availableDate;
     }
 
     /**
@@ -191,11 +167,10 @@ public class Doctor {
     }
 
 //    constructor
-    public Doctor(String name, String specialization, Long contactNumber, LocalDate availableDate) {
+    public Doctor(String name, String specialization, Long contactNumber) {
         this.name = name;
         this.specialization = specialization;
         this.contactNumber = contactNumber;
-        this.availableDate = availableDate;
     }
 //    constructor
     public Doctor() {
@@ -205,7 +180,7 @@ public class Doctor {
     
         @Override
     public String toString() {
-        return "Doctor{" + "id=" + id + ", name=" + name + ", specialization=" + specialization + ", contactNumber=" + contactNumber + ", availableDate=" + availableDate + '}';
+        return "Doctor{" + "id=" + id + ", name=" + name + ", specialization=" + specialization + ", contactNumber=" + contactNumber + '}';
     }
     
     @Override
