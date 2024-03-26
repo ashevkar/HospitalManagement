@@ -48,8 +48,8 @@ public class StartupDBInitializer {
     private void postConstruct(){
         LOG.info("StartupDBInitializer.postConstruct");
         
-        Hospital h1= new Hospital("Insight Hospital","2525 S Michigan Ave", 3125672000L);
-        Hospital h2= new Hospital("Northwestern Memorial Hospital", "251 E Huron St" ,  3129262000L);
+        Hospital h1= new Hospital("Insight Hospital","2525 S Michigan Ave", "3125672000");
+        Hospital h2= new Hospital("Northwestern Memorial Hospital", "251 E Huron St" ,  "3129262000");
         
         hospitalSvc.create(h1);
         hospitalSvc.create(h2);

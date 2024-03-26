@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQuery;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +30,10 @@ public class Hospital extends AbstractEntity{
 
     @Column(name = "HOSPITAL_ADDRESS")
     private String address;
-
+    
+    @Pattern(regexp="[0-9]{10}", message="Contact number must be 10 digits long")
     @Column(name = "CONTACT_NUMBER")
-    private Long contactNumber;
+    private String contactNumber;
     
 //    M:M bidirectional relationship b/w patient & hospital
 //    Hospital is the inverse (non-owning side of the relationship)mapped property
@@ -61,7 +63,7 @@ public class Hospital extends AbstractEntity{
      *
      * @return the value of contactNumber
      */
-    public Long getContactNumber() {
+    public String getContactNumber() {
         return contactNumber;
     }
 
@@ -70,7 +72,7 @@ public class Hospital extends AbstractEntity{
      *
      * @param contactNumber new value of contactNumber
      */
-    public void setContactNumber(Long contactNumber) {
+    public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
 
@@ -111,7 +113,7 @@ public class Hospital extends AbstractEntity{
     }
     
     
-    public Hospital(String name, String address, Long contactNumber) {
+    public Hospital(String name, String address, String contactNumber) {
         this.name = name;
         this.address = address;
         this.contactNumber = contactNumber;

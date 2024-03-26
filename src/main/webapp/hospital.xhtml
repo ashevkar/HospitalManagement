@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html">
+
+    <h:head>
+        <title>Create a new Hospital JSF Form</title>
+    </h:head>
+
+    <h:body>
+        <h1>Create a new Hospital with JSF</h1>
+
+        <h:form>
+
+            <p>
+                <h:panelGroup layout="block">
+                    <h:outputLabel value="Hospital Name :- " for="hospitalName" />
+                    <h:inputText id="hospitalName" value="#{hospitalController.hospital.name}" />
+                    <h:message for="hospitalName" errorStyle="color: red" infoStyle="color: green"/>
+                </h:panelGroup>
+            </p>
+
+            <p>
+                <h:panelGroup layout="block">
+                    <h:outputLabel value="Address :- " for="hospitalAddress"/>
+                    <h:inputText id="hospitalAddress" value="#{hospitalController.hospital.address}" />                    
+                    <h:message for="hospitalAddress" errorStyle="color: red" infoStyle="color: green"/>
+                </h:panelGroup>
+            </p>
+            
+            <p>
+                <h:panelGroup layout="block">
+                    <h:outputLabel value="Contact Number :- " for="contactNumber"/>
+                    <h:inputText id="contactNumber" value="#{hospitalController.hospital.contactNumber}" />                  
+                    <h:message for="contactNumber" errorStyle="color: red" infoStyle="color: green" />
+
+            </h:panelGroup>
+            </p>
+
+            
+
+            <h:commandButton value="Create A New Hospital" action="#{hospitalController.saveHospital()}" />
+
+        </h:form>
+
+
+    </h:body>
+</html>

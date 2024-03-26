@@ -20,7 +20,7 @@ public class JPARelationshipTest extends AbstractJPATest {
     @Test
     public void uniDirectionalRelationshipTest(){
         
-        Hospital h = new Hospital("Noble", "1740 W Taylor St, Chicago, IL 60612", 8666002273l);
+        Hospital h = new Hospital("Noble", "1740 W Taylor St, Chicago, IL 60612", "8666002273");
         Doctor d = new Doctor("Neel", "Cardiology", 29329772l);
         //set the relationship
         d.setHospital(h);
@@ -44,7 +44,7 @@ public class JPARelationshipTest extends AbstractJPATest {
     public void biDirectionalRelationshipTest(){
         Patient p= new Patient("Saniya", LocalDate.of(2000, 02, 28), PatientGender.FEMALE);   
         
-        Hospital h = new Hospital("Insight", "2525 S Michigan Ave, Chicago, IL 60616", 3125672000l);
+        Hospital h = new Hospital("Insight", "2525 S Michigan Ave, Chicago, IL 60616","4567890123");
 
 //        non-owning side was set but the database was not updated.
 //        h.getPatients().add(p);
