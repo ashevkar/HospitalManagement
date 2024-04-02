@@ -6,6 +6,9 @@
     <class>edu.iit.sat.itmd4515.ashevkar.domain.Hospital</class>
     <class>edu.iit.sat.itmd4515.ashevkar.domain.Doctor</class>
     <class>edu.iit.sat.itmd4515.ashevkar.domain.Appointment</class>
+    <class>edu.iit.sat.itmd4515.ashevkar.domain.Nurse</class>
+    <class>edu.iit.sat.itmd4515.ashevkar.security.User</class>
+    <class>edu.iit.sat.itmd4515.ashevkar.security.Group</class>
         
     <properties>
       <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

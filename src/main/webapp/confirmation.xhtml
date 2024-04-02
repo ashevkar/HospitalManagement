@@ -1,13 +1,17 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html">
-    <h:head>
-        <title>Confirmation page</title>
-    </h:head>
-    <h:body>
-        <h1>
-Confirmed! </h1>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/templates/authenticatedTemplate.xhtml">
+
+    <ui:define name="title">
+        New confirmation page.
+    </ui:define>
+
+    <ui:define name="content">
+        <h2>
+        Confirmed! 
+        </h2>
         <ul>
             <li>#{hospitalController.hospital.id}</li>
             <li>#{hospitalController.hospital.name}</li>
@@ -17,7 +21,8 @@ Confirmed! </h1>
             <li>#{hospitalController.hospital.modifiedTimestamp}</li>            
             <li>#{hospitalController.hospital.version}</li>
             
-
         </ul>
-    </h:body>
-</html>
+
+    </ui:define>
+
+</ui:composition>

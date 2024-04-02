@@ -4,15 +4,50 @@
         <param-name>jakarta.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
-   
+
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    
+
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>login.xhtml</welcome-file>
     </welcome-file-list>
+
+    <security-constraint>
+        <web-resource-collection> 
+            <web-resource-name>Admin App Content</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+            <url-pattern>/welcome.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ADMIN_ROLE</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection> 
+            <web-resource-name>Hospital App Content</web-resource-name>
+            <url-pattern>/hospital/*</url-pattern>
+            <url-pattern>/welcome.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>HOSPITAL_ROLE</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <security-constraint>
+        <web-resource-collection> 
+            <web-resource-name>Patient App Content</web-resource-name>
+            <url-pattern>/patient/*</url-pattern>
+            <url-pattern>/welcome.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>PATIENT_ROLE</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+ 
+            
 </web-app>

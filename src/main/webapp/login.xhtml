@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/templates/publicTemplate.xhtml"
+                xmlns:h="jakarta.faces.html">
+
+    <ui:define name="title">
+        Login Page
+    </ui:define>
+
+    <ui:define name="content">
+       Enter correct username and password.
+        
+        <h:form>
+
+            <p>
+                <h:panelGroup layout="block">
+                    <h:outputLabel value="User Name" for="userName" />
+                    <h:inputText id="userName" value="#{loginController.user.userName}" />
+                    <h:message for="userName" errorStyle="color: red" infoStyle="color: green"/>
+                </h:panelGroup>
+            </p>
+
+            <p>
+                <h:panelGroup layout="block">
+                    <h:outputLabel value="Password" for="password" />
+                    <h:inputSecret id="password" value="#{loginController.user.password}" />
+                    <h:message for="password" errorStyle="color: red" infoStyle="color: green"/>
+                </h:panelGroup>
+            </p>
+            
+            <p>
+                <h:commandButton value="Login" action="#{loginController.doLogin()}" />
+            </p>
+            
+        </h:form>
+        
+    </ui:define>
+
+</ui:composition>

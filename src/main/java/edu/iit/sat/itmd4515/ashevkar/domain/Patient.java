@@ -4,6 +4,7 @@
  */
 package edu.iit.sat.itmd4515.ashevkar.domain;
 
+import edu.iit.sat.itmd4515.ashevkar.security.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,6 +14,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -52,7 +54,29 @@ public class Patient extends AbstractNamedEntity{
     private List<Appointment> appointments = new ArrayList<>();
    
     
-    
+//    @OneToOne
+//    @JoinColumn(name = "USERNAME")
+//    private User user;
+//
+//    /**
+//     * Get the value of user
+//     *
+//     * @return the value of user
+//     */
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    /**
+//     * Set the value of user
+//     *
+//     * @param user new value of user
+//     */
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
+//
+
     public void addHospital(Hospital h){
         
         if(! this.hospitals.contains(h)){

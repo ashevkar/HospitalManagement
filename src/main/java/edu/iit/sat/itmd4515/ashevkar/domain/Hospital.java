@@ -4,10 +4,13 @@
  */
 package edu.iit.sat.itmd4515.ashevkar.domain;
 
+import edu.iit.sat.itmd4515.ashevkar.security.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -34,6 +37,29 @@ public class Hospital extends AbstractEntity{
     @Pattern(regexp="[0-9]{10}", message="Contact number must be 10 digits long")
     @Column(name = "CONTACT_NUMBER")
     private String contactNumber;
+    
+    @OneToOne
+    @JoinColumn(name = "USERNAME")
+    private User user;
+
+    /**
+     * Get the value of user
+     *
+     * @return the value of user
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * Set the value of user
+     *
+     * @param user new value of user
+     */
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     
 //    M:M bidirectional relationship b/w patient & hospital
 //    Hospital is the inverse (non-owning side of the relationship)mapped property

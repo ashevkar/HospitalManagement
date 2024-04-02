@@ -10,6 +10,10 @@ import edu.iit.sat.itmd4515.ashevkar.domain.Hospital;
 import edu.iit.sat.itmd4515.ashevkar.domain.Nurse;
 import edu.iit.sat.itmd4515.ashevkar.domain.Patient;
 import edu.iit.sat.itmd4515.ashevkar.domain.PatientGender;
+import edu.iit.sat.itmd4515.ashevkar.security.Group;
+import edu.iit.sat.itmd4515.ashevkar.security.GroupService;
+import edu.iit.sat.itmd4515.ashevkar.security.User;
+import edu.iit.sat.itmd4515.ashevkar.security.UserService;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Singleton;
@@ -40,6 +44,11 @@ public class StartupDBInitializer {
     @EJB 
     NurseService nurseSvc;
 
+    @EJB
+    UserService userSvc;
+    
+    @EJB
+    GroupService groupSvc;
     
     public StartupDBInitializer() {
     }
@@ -48,11 +57,54 @@ public class StartupDBInitializer {
     private void postConstruct(){
         LOG.info("StartupDBInitializer.postConstruct");
         
+        Group hospitalGroup = new Group("HOSPITAL_GROUP","Security realm hospital group");
+        Group patientGroup = new Group("PATIENT_GROUP","Security realm patient group");
+        
+        Group adminGroup = new Group("ADMIN_GROUP","Security realm admin user");
+        
+        groupSvc.create(adminGroup);
+        groupSvc.create(hospitalGroup);
+        groupSvc.create(patientGroup);
+        
+        
+        User hospital1 = new User("hospital1","hospital1");
+        hospital1.addGroup(hospitalGroup);
+        hospital1.addGroup(patientGroup);
+        hospital1.addGroup(adminGroup);
+        userSvc.create(hospital1);
+        
+        
+        User hospital2 = new User("hospital2","hospital2");
+        hospital2.addGroup(hospitalGroup);
+        userSvc.create(hospital2);
+        
+        User hospital3 = new User("hospital3","hospital3");
+        hospital3.addGroup(hospitalGroup);
+        userSvc.create(hospital3);
+        
+        
+        
+        User patient1 = new User("patient1","patient1");
+        patient1.addGroup(patientGroup);
+        userSvc.create(patient1);
+ 
+        
+        
+        User admin = new User("admin","admin");
+        admin.addGroup(adminGroup);
+        userSvc.create(admin);
+                    
         Hospital h1= new Hospital("Insight Hospital","2525 S Michigan Ave", "3125672000");
+        h1.setUser(hospital1);
         Hospital h2= new Hospital("Northwestern Memorial Hospital", "251 E Huron St" ,  "3129262000");
+        h2.setUser(hospital2);
+        Hospital h3= new Hospital("Noble Hospital","2123 S Roger park", "8726642261");
+        h3.setUser(hospital3);
+
         
         hospitalSvc.create(h1);
         hospitalSvc.create(h2);
+        hospitalSvc.create(h3);
         
         Patient p1= new Patient("Nehal", LocalDate.of(1999,11,10), PatientGender.MALE);
         p1.addHospital(h2);

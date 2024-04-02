@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/templates/authenticatedTemplate.xhtml"
+                xmlns:h="jakarta.faces.html">
+
+    <ui:define name="title">
+        Welcome to the Hospital Application.
+    </ui:define>
+
+    <ui:define name="content">
+        Welcome #{loginController.authenticatedUser}!
+
+        <h:form>
+            <ul>
+                <li><h:link outcome="/welcome.xhtml">Home</h:link></li>
+                <li><h:link outcome="/admin/welcome.xhtml">Admin Access</h:link></li>
+                <li><h:link outcome="/hospital/welcome.xhtml">Hospital Access</h:link></li>
+                <li><h:link outcome="/patient/welcome.xhtml">Patient Access</h:link></li>
+
+
+                <li><h:commandLink action="#{loginController.doLogout()}" value="Logout"/></li>
+            </ul>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
