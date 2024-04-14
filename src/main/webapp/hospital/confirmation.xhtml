@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./WEB-INF/templates/authenticatedTemplate.xhtml">
+                template="../WEB-INF/templates/authenticatedTemplate.xhtml">
 
     <ui:define name="title">
         New confirmation page.
@@ -13,13 +13,21 @@
         Confirmed! 
         </h2>
         <ul>
-            <li>#{hospitalController.hospital.id}</li>
+<!--            <li>#{hospitalController.hospital.id}</li>
             <li>#{hospitalController.hospital.name}</li>
             <li>#{hospitalController.hospital.address}</li>
             <li>#{hospitalController.hospital.contactNumber}</li>
             <li>#{hospitalController.hospital.createdTimestamp}</li>
             <li>#{hospitalController.hospital.modifiedTimestamp}</li>            
-            <li>#{hospitalController.hospital.version}</li>
+            <li>#{hospitalController.hospital.version}</li>-->
+            
+            
+            <li>#{patientController.patient.id}</li>
+            <li>#{patientController.patient.name}</li>
+            <li>#{patientController.patient.birthDate}</li>
+            <li>#{patientController.patient.gender}</li>
+            <li>#{patientController.patient.createdTimestamp}</li>
+            <li>#{patientController.patient.modifiedTimestamp}</li>
             
         </ul>
 

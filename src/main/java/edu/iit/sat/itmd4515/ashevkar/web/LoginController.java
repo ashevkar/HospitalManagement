@@ -52,6 +52,15 @@ public class LoginController {
     public String getAuthenticatedUser() {
         return securityContext.getCallerPrincipal().getName();
     }
+    public boolean isPatient(){
+        return securityContext.isCallerInRole("PATIENT_ROLE");
+    }
+    public boolean isHospital(){
+        return securityContext.isCallerInRole("HOSPITAL_ROLE");
+    }
+    public boolean isAdmin(){
+        return securityContext.isCallerInRole("ADMIN_ROLE");
+    }
 
     public String doLogin() {
         LOG.info("LoginController.doLogin");

@@ -3,7 +3,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="../WEB-INF/templates/authenticatedTemplate.xhtml"
-                xmlns:h="jakarta.faces.html">
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core">
 
     <ui:define name="title">
         Patient
@@ -12,9 +13,34 @@
     <ui:define name="content">
         Welcome #{loginController.authenticatedUser}! to the patient section.
         
-        <ul>
-            <li><h:link outcome="/welcome.xhtml">Home</h:link></li>
-        </ul>
+         <h:dataTable 
+            styleClass="table table-hover table-bordered"
+            value="#{welcomePatientController.patient}" 
+            var="patient">
+            <h:column>
+                <f:facet name="header">Patient Id</f:facet>
+                <h:outputText value="#{patient.id}"/>                              
+            </h:column>
+            <h:column>
+                <f:facet name="header">Patient Name</f:facet>
+                <h:outputText value="#{patient.name}"/>                              
+            </h:column>  
+            <h:column>
+                <f:facet name="header">Patient Gender</f:facet>
+                <h:outputText value="#{patient.gender}"/>                              
+            </h:column>
+            <h:column>
+                <f:facet name="header">Patient Birthday</f:facet>
+                <h:outputText value="#{patient.birthDate}"/> 
+            </h:column>
+            <h:column>
+                <f:facet name="header">Patient's Hospital</f:facet>
+                <ui:repeat value="#{patient.hospitals}" var="hospital">
+                    <h:outputText value="#{hospital.name}"/>    
+                </ui:repeat>
+            </h:column>
+                      
+        </h:dataTable>
         
     </ui:define>
 

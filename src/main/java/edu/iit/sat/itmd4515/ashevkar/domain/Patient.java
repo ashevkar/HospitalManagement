@@ -27,6 +27,7 @@ import java.util.Objects;
  */
 @Entity 
 @NamedQuery(name = "Patient.findAll", query= "select p from Patient p")
+@NamedQuery(name = "Patient.findByUsername", query="select p from Patient p where p.user.userName = :uname")
 public class Patient extends AbstractNamedEntity{
 
     //bean validation
@@ -51,34 +52,20 @@ public class Patient extends AbstractNamedEntity{
 //    M:1 is always the owning side
 //    Appointment is the owner of this relationship
     @OneToMany(mappedBy = "patient")
-    private List<Appointment> appointments = new ArrayList<>();
-   
+    private List<Appointment> appointments = new ArrayList<>();  
     
-//    @OneToOne
-//    @JoinColumn(name = "USERNAME")
-//    private User user;
-//
-//    /**
-//     * Get the value of user
-//     *
-//     * @return the value of user
-//     */
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    /**
-//     * Set the value of user
-//     *
-//     * @param user new value of user
-//     */
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
-//
+    @OneToOne
+    @JoinColumn(name = "USERNAME")
+    private User user;
 
-    public void addHospital(Hospital h){
-        
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    public void addHospital(Hospital h){        
         if(! this.hospitals.contains(h)){
             this.hospitals.add(h);
         }
@@ -86,8 +73,7 @@ public class Patient extends AbstractNamedEntity{
             h.getPatients().add(this);
         }
     }
-    public void removeHospital(Hospital h){
-        
+    public void removeHospital(Hospital h){        
         if(this.hospitals.contains(h)){
             this.hospitals.remove(h);
         }
@@ -96,80 +82,34 @@ public class Patient extends AbstractNamedEntity{
         }
     }
 
-    
-        /**
-     * Get the value of appointments
-     *
-     * @return the value of appointments
-     */
+        
     public List<Appointment> getAppointments() {
         return appointments;
     }
-
-    /**
-     * Set the value of appointments
-     *
-     * @param appointments new value of appointments
-     */
     public void setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
     }   
-
-    /**
-     * Get the value of hospitals
-     *
-     * @return the value of hospitals
-     */
+   
     public List<Hospital> getHospitals() {
         return hospitals;
     }
-
-    /**
-     * Set the value of hospitals
-     *
-     * @param hospitals new value of hospitals
-     */
     public void setHospitals(List<Hospital> hospitals) {
         this.hospitals = hospitals;
     }
-     
-    /**
-     * Get the value of gender
-     *
-     * @return the value of gender
-     */
+    
     public PatientGender getGender() {
         return gender;
     }
-
-    /**
-     * Set the value of gender
-     *
-     * @param gender new value of gender
-     */
     public void setGender(PatientGender gender) {
         this.gender = gender;
     }
     
-    /**
-     * Get the value of birthDate
-     *
-     * @return the value of birthDate
-     */
     public LocalDate getBirthDate() {
         return birthDate;
     }
-
-    /**
-     * Set the value of birthDate
-     *
-     * @param birthDate new value of birthDate
-     */
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
-
-    
 
     public Patient(String name, LocalDate birthDate, PatientGender gender) {
         this.name = name;
@@ -205,9 +145,7 @@ public class Patient extends AbstractNamedEntity{
         final Patient other = (Patient) obj;
         if(this.id == null || other.id == null){
             return false;
-        }
-        
-        
+        }          
         return Objects.equals(this.id, other.id);
     }
 }

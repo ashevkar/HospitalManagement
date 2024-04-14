@@ -25,6 +25,7 @@ import java.util.Objects;
 @Entity
 @XmlRootElement
 @NamedQuery(name = "Hospital.findAll", query = "select h from Hospital h")
+@NamedQuery(name = "Hospital.findByUsername", query = "select h from Hospital h where h.user.userName= :uname")
 public class Hospital extends AbstractEntity{
  
     @NotBlank   
@@ -42,102 +43,62 @@ public class Hospital extends AbstractEntity{
     @JoinColumn(name = "USERNAME")
     private User user;
 
-    /**
-     * Get the value of user
-     *
-     * @return the value of user
-     */
-    public User getUser() {
-        return user;
-    }
-
-    /**
-     * Set the value of user
-     *
-     * @param user new value of user
-     */
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    
 //    M:M bidirectional relationship b/w patient & hospital
 //    Hospital is the inverse (non-owning side of the relationship)mapped property
     @ManyToMany(mappedBy = "hospitals")
     private List<Patient> patients = new ArrayList<>();
+      
+    public User getUser() {
+        return user;
+    } 
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-    /**
-     * Get the value of patients
-     *
-     * @return the value of patients
-     */
     public List<Patient> getPatients() {
         return patients;
     }
-
-    /**
-     * Set the value of patients
-     *
-     * @param patients new value of patients
-     */
     public void setPatients(List<Patient> patients) {
         this.patients = patients;
     }
-
-    /**
-     * Get the value of contactNumber
-     *
-     * @return the value of contactNumber
-     */
+  
     public String getContactNumber() {
         return contactNumber;
-    }
-
-    /**
-     * Set the value of contactNumber
-     *
-     * @param contactNumber new value of contactNumber
-     */
+    }  
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
-
-    /**
-     * Get the value of address
-     *
-     * @return the value of address
-     */
+  
     public String getAddress() {
         return address;
     }
-
-    /**
-     * Set the value of address
-     *
-     * @param address new value of address
-     */
     public void setAddress(String address) {
         this.address = address;
     }
 
-    /**
-     * Get the value of name
-     *
-     * @return the value of name
-     */
     public String getName() {
         return name;
-    }
-
-    /**
-     * Set the value of name
-     *
-     * @param name new value of name
-     */
+    }  
     public void setName(String name) {
         this.name = name;
     }
     
+    public void addPatient(Patient p){     
+        if(! this.patients.contains(p)){
+            this.patients.add(p);
+        }
+        if(!p.getHospitals().contains(this)){
+            p.getHospitals().add(this);
+        }
+    }
+    public void removePatient(Patient p){        
+        if(this.patients.contains(p)){
+            this.patients.remove(p);
+        }
+        if(p.getHospitals().contains(this)){
+            p.getHospitals().remove(this);
+        }
+    }
     
     public Hospital(String name, String address, String contactNumber) {
         this.name = name;
@@ -148,7 +109,6 @@ public class Hospital extends AbstractEntity{
     public Hospital() {
     }
     
-
     @Override
     public String toString() {
         return "Hospital{" + "id=" + id + ", name=" + name + ", address=" + address + ", contactNumber=" + contactNumber + '}';
@@ -175,10 +135,8 @@ public class Hospital extends AbstractEntity{
         final Hospital other = (Hospital) obj;
         if(this.id == null || other.id == null){
             return false;
-        }
-        
+        }     
         return Objects.equals(this.id, other.id);
     }
-
 
 }

@@ -2,15 +2,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./WEB-INF/templates/authenticatedTemplate.xhtml"
-                xmlns:h="jakarta.faces.html">
+                template="../WEB-INF/templates/authenticatedTemplate.xhtml">
 
     <ui:define name="title">
-        Welcome to the Hospital Application.
+    403 Forbidden
     </ui:define>
 
     <ui:define name="content">
-        Welcome #{loginController.authenticatedUser}!
+    Sorry, you don't have permission to access this resource.    
     </ui:define>
 
 </ui:composition>

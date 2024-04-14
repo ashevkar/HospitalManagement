@@ -3,18 +3,55 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="../WEB-INF/templates/authenticatedTemplate.xhtml"
-                xmlns:h="jakarta.faces.html">
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core">
 
     <ui:define name="title">
         Hospital
     </ui:define>
 
-    <ui:define name="content">
-        Welcome #{loginController.authenticatedUser}! to the hospital section.
+        <ui:define name="content">
+        Welcome #{loginController.authenticatedUser}! to the Hospital section application
         
-        <ul>
-            <li><h:link outcome="/welcome.xhtml">Home</h:link></li>
-        </ul>
+        <h:link outcome="/hospital/patient.xhtml" value="Create a New patient" />
+
+        <h:dataTable 
+            styleClass="table table-hover table-bordered"
+            value="#{welcomeController.hospital.patients}" var="patient">
+          
+            <h:column>
+                <f:facet name="header">Patient Id</f:facet>
+                <h:outputText value="#{patient.id}"/>   
+
+            </h:column>
+            <h:column>
+                <f:facet name="header">Patient Name</f:facet>
+                <h:outputText value="#{patient.name}"/>                              
+            </h:column>  
+            <h:column>
+                <f:facet name="header">Patient birth Date</f:facet>
+                <h:outputText value="#{patient.birthDate}">  
+                <f:convertDateTime type="localDate" dateStyle="full"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Patient gender </f:facet>
+                <h:outputText value="#{patient.gender.label}"/>            
+            </h:column>
+            
+             <h:column>
+                <f:facet name="header"># Hospitals</f:facet>
+                <h:outputText value="#{patient.hospitals.size()}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Hospital Names</f:facet>
+                <ui:repeat value="#{patient.hospitals}" var="hospital">
+                    <h:outputText value="#{hospital.name} "/>
+                </ui:repeat>
+            </h:column>
+                                 
+        </h:dataTable>
         
     </ui:define>
 

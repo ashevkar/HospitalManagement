@@ -54,13 +54,14 @@ public class JPARelationshipTest extends AbstractJPATest {
 //        p.getHospitals().add(h);
 //        h.getPatients().add(p);
 
-        p.addHospital(h);
+//        p.addHospital(h);
+        h.addPatient(p);
         
         tx.begin();
         //non-owning side
-        em.persist(h);
-        //owning side
         em.persist(p);
+        //owning side
+        em.persist(h);
         tx.commit();
         
         System.out.println("Owning side"+ p.getHospitals().toString());
@@ -73,9 +74,10 @@ public class JPARelationshipTest extends AbstractJPATest {
         
 //        delete data 
         tx.begin();
-        p.removeHospital(h);
-        em.remove(h);
+//        p.removeHospital(h);
+        h.removePatient(p);
         em.remove(p);
+        em.remove(h);
         tx.commit();
       
     }

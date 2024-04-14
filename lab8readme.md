@@ -15,4 +15,14 @@ When the user is not authenticated then access is denied.
 <img width="1280" alt="Screenshot 2024-04-01 at 9 26 02 PM" src="https://github.com/itmd4515/itmd4515-s24-fp-ashevkar/assets/152341739/5af770f7-963e-451f-85c7-980420fd6644">
 >In this image the password is hashed.
 
-In this lab, I have faced a lot of issues. whenever I would run the application I had to restart the Payara server then only I could successfully run the application, otherwise, I would get an error.
+In this lab, I have faced a lot of issues. Before running the application I had to restart the Payara server then only I could successfully run the application, otherwise, I would get an error.
+
+Username: hospital1, Password:hospital1
+
+Username: hospital2, Password:hospital2
+
+Username: hospital3, Password:hospital3
+
+Username: admin, Password:admin
+
+Username: patient1, Password:patient1

@@ -5,7 +5,9 @@
 package edu.iit.sat.itmd4515.ashevkar.web;
 
 import edu.iit.sat.itmd4515.ashevkar.domain.Hospital;
+import edu.iit.sat.itmd4515.ashevkar.domain.Patient;
 import edu.iit.sat.itmd4515.ashevkar.service.HospitalService;
+import edu.iit.sat.itmd4515.ashevkar.service.PatientService;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.RequestScoped;
@@ -22,9 +24,10 @@ public class HospitalController {
     
 private static final Logger LOG = Logger.getLogger(HospitalController.class.getName());
     
-    @EJB HospitalService hospitalSvc;
+    @EJB HospitalService hospitalSvc;  //original
     
     private Hospital hospital;
+
 
     public HospitalController() {
     }
@@ -45,13 +48,11 @@ private static final Logger LOG = Logger.getLogger(HospitalController.class.getN
         LOG.info("saveHospital has been invoked with model: " + this.hospital.toString());
 
         hospitalSvc.create(hospital);
-
+ 
         LOG.info("saveHospital after calling service layer: " + this.hospital.toString());
         
         return "confirmation.xhtml";
     }
-    
-    
     public Hospital getHospital() {
         return hospital;
     }
@@ -60,5 +61,8 @@ private static final Logger LOG = Logger.getLogger(HospitalController.class.getN
         this.hospital = hospital;
     }
 
+  
+    
+    
 }
 

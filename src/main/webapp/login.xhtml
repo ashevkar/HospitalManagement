@@ -3,39 +3,51 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./WEB-INF/templates/publicTemplate.xhtml"
-                xmlns:h="jakarta.faces.html">
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="jakarta.faces.passthrough">
 
     <ui:define name="title">
         Login Page
     </ui:define>
 
     <ui:define name="content">
-       Enter correct username and password.
-        
-        <h:form>
+        <main class="form-signin w-100 m-auto">
 
-            <p>
-                <h:panelGroup layout="block">
-                    <h:outputLabel value="User Name" for="userName" />
-                    <h:inputText id="userName" value="#{loginController.user.userName}" />
+            <h:form styleClass="form-signin">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+                <h:panelGroup styleClass="form-floating" layout="block">
+                    <h:inputText binding="#{uname}" 
+                                 styleClass="#{uname.valid ? 'form-control' : 'form-control is-invalid'}" 
+                                 id="userName" 
+                                 p:placeholder="Username"
+                                 
+                                 value="#{loginController.user.userName}" />
+                    <h:outputLabel value="User Name" for="userName" />                   
                     <h:message for="userName" errorStyle="color: red" infoStyle="color: green"/>
                 </h:panelGroup>
-            </p>
-
-            <p>
-                <h:panelGroup layout="block">
-                    <h:outputLabel value="Password" for="password" />
-                    <h:inputSecret id="password" value="#{loginController.user.password}" />
+            
+                <h:panelGroup styleClass="form-floating" layout="block">
+                    <h:inputSecret binding="#{passwd}"
+                                   styleClass="#{passwd.valid ? 'form-control' : 'form-control is-invalid'}" 
+                                   id="password" 
+                                   p:placeholder="Password"
+                                   value="#{loginController.user.password}" />
+                    <h:outputLabel value="Password" for="password" />                    
                     <h:message for="password" errorStyle="color: red" infoStyle="color: green"/>
                 </h:panelGroup>
-            </p>
+           
+                <h:commandButton styleClass="btn btn-primary w-100 py-2" 
+                                 value="Login" 
+                                 action="#{loginController.doLogin()}" />
             
-            <p>
-                <h:commandButton value="Login" action="#{loginController.doLogin()}" />
-            </p>
+                <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
+           
+            
             
         </h:form>
-        
+        </main>        
+
     </ui:define>
 
 </ui:composition>
