@@ -57,12 +57,14 @@ public class StartupDBInitializer {
         LOG.info("StartupDBInitializer.postConstruct");
         
         Group hospitalGroup = new Group("HOSPITAL_GROUP","Security realm hospital group");
-        Group patientGroup = new Group("PATIENT_GROUP","Security realm patient group");        
+        Group patientGroup = new Group("PATIENT_GROUP","Security realm patient group");  
+        Group doctorGroup = new Group("DOCTOR_GROUP","Security realm doctor group");   
         Group adminGroup = new Group("ADMIN_GROUP","Security realm admin user");
         
         groupSvc.create(adminGroup);
         groupSvc.create(hospitalGroup);
         groupSvc.create(patientGroup);
+        groupSvc.create(doctorGroup);
         
         User hospital1 = new User("hospital1","hospital1");
         hospital1.addGroup(hospitalGroup);
@@ -80,22 +82,33 @@ public class StartupDBInitializer {
         User patient1 = new User("patient1","patient1");
         patient1.addGroup(patientGroup);
         userSvc.create(patient1);
+        
+        User patient2 = new User("patient2","patient2");
+        patient2.addGroup(patientGroup);
+        userSvc.create(patient2);
+        
+        User doctor1 = new User("doctor1","doctor1");
+        doctor1.addGroup(doctorGroup);
+//        doctor1.addGroup(patientGroup);
+        userSvc.create(doctor1);
+        
+        User doctor2 = new User("doctor2","doctor2");
+        doctor2.addGroup(doctorGroup);
+        userSvc.create(doctor2);
 
         User admin = new User("admin","admin");
         admin.addGroup(adminGroup);
         userSvc.create(admin);
+        
                     
         Patient p1= new Patient("Nehal", LocalDate.of(1999,11,10), PatientGender.MALE);
         p1.setUser(patient1);
         Patient p2= new Patient("Aishwarya", LocalDate.of(1998,11,6), PatientGender.FEMALE);
-        
-//        p2.addHospital(h1);
+        p2.setUser(patient2);
         Patient p3= new Patient("Saniya", LocalDate.of(2000,2,28), PatientGender.FEMALE);
-//        p3.addHospital(h1);
         Patient p4= new Patient("Yash", LocalDate.of(2002,8,30), PatientGender.MALE);
-//        p4.addHospital(h2);
         Patient p5= new Patient("Jai", LocalDate.of(1997,7,17), PatientGender.MALE);
-//        p5.addHospital(h2);
+
         
         patientSvc.create(p1);
         patientSvc.create(p2);
@@ -120,9 +133,11 @@ public class StartupDBInitializer {
         hospitalSvc.create(h3);
         
         Doctor d1 = new Doctor("Nitin", "Neurology", 7324732647L);
-        d1.setHospital(h1);
+        d1.setHospital(h1);   
+        d1.setUser(doctor1);
         Doctor d2 = new Doctor("Lata", "Orthopedics", 9422314917L);
         d2.setHospital(h2);
+        d2.setUser(doctor2);
         Doctor d3 = new Doctor("Sunil", "Urology", 9420697107L);
         d3.setHospital(h2);
         Doctor d4 = new Doctor("Priya", "Cardiology", 7709353388L);
@@ -134,9 +149,9 @@ public class StartupDBInitializer {
         doctorSvc.create(d4);
         
         Appointment a1 = new Appointment(LocalDate.of(2024, 6, 11), LocalTime.of(10, 45));
-        a1.scheduleApt(d4, p2);
+        a1.scheduleApt(d4, p1);
         Appointment a2 = new Appointment(LocalDate.of(2024, 7, 20), LocalTime.of(8, 30));
-        a2.scheduleApt(d1, p3);
+        a2.scheduleApt(d1, p2);
         Appointment a3 = new Appointment(LocalDate.of(2024, 8, 12), LocalTime.of(10, 45));
         a3.scheduleApt(d3, p4);
         Appointment a4 = new Appointment(LocalDate.of(2024, 6, 15), LocalTime.of(8, 30));

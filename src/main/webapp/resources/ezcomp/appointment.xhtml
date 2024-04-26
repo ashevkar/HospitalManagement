@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="jakarta.faces.passthrough"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="operation" required="true" type="java.lang.String" />
+        <cc:attribute name="appointment" type="edu.iit.sat.itmd4515.ashevkar.domain.Appointment" required="true"/>
+        <cc:attribute name="action" required="false" method-signature="java.lang.String action()" />
+        <cc:attribute name="admin" required="false" default="false" type="java.lang.Boolean" />
+
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+    
+        <h:form>
+            
+            <p>
+                <h:panelGroup layout="block" rendered="#{not cc.attrs.operation.equalsIgnoreCase('create')}">
+                    <h:outputLabel value="Appointment ID :- #{cc.attrs.appointment.id} " for="appointmentId" />
+                    <h:inputHidden id="appointmentId" value="#{cc.attrs.appointment.id}" />
+                    <h:message for="appointmentId" errorStyle="color: red" infoStyle="color: green"/>
+                </h:panelGroup>
+            </p>       
+
+            <p>
+                <h:panelGroup layout="block">
+                    <h:outputLabel value="Appointment date :- " for="appointmentDate"/>
+                    <h:inputText readonly="#{cc.attrs.operation.equalsIgnoreCase('view') or cc.attrs.operation.equalsIgnoreCase('delete') }" 
+                                 p:type="date" id="appointmentDate" value="#{cc.attrs.appointment.date}">
+                        <f:convertDateTime type="localDate" pattern="yyyy-MM-dd" />
+                    </h:inputText>
+                    <h:message for="appointmentDate" errorStyle="color: red" infoStyle="color: green"/>
+                </h:panelGroup>
+            </p>
+            
+            <p>
+                <h:panelGroup layout="block">
+                    <h:outputLabel value="Appointment time :- " for="appointmentTime"/>
+                    <h:inputText readonly="#{cc.attrs.operation.equalsIgnoreCase('view') or cc.attrs.operation.equalsIgnoreCase('delete') }" 
+                                 p:type="time" id="appointmentTime" value="#{cc.attrs.appointment.time}">
+                        <f:convertDateTime type="localTime" pattern="HH:mm"/>
+                    </h:inputText>
+                    <h:message for="appointmentTime" errorStyle="color: red" infoStyle="color: green"/>
+                </h:panelGroup>
+            </p>
+
+            <p>
+                <h:panelGroup layout="block" >
+                    <!--rendered="#{cc.attrs.admin}"-->
+                    <h:outputLabel value="Patient name:-" for="adminPatient"/>
+
+                    <h:selectOneMenu 
+                        id="adminPatient"
+                        converter="patientConverter"
+                        readonly="#{cc.attrs.operation.equalsIgnoreCase('view') or cc.attrs.operation.equalsIgnoreCase('delete')}"
+                        disabled="#{cc.attrs.operation.equalsIgnoreCase('view') or cc.attrs.operation.equalsIgnoreCase('delete')}"
+                        value="#{cc.attrs.appointment.patient}">
+                       
+                        <f:selectItems var="p" 
+                                       value="#{patientService.findAll()}"
+                                       itemLabel="#{p.name}"
+                                       itemValue="#{p}" />
+
+                    </h:selectOneMenu>
+                    <h:message for="adminPatient" errorStyle="color: red" infoStyle="color: green"/>
+                </h:panelGroup>
+            </p>
+            
+<!--            <p>
+                <h:panelGroup layout="block" rendered="#{cc.attrs.admin}">
+                    <h:outputLabel value="Patient ID:- #{cc.attrs.appointment.patient.id} (#{cc.attrs.appointment.patient.name})" for="patientId" />
+                    <h:inputHidden id="patientId" value="#{cc.attrs.appointment.patient.id}" />
+                    <h:message for="patientId" errorStyle="color: red" infoStyle="color: green"/>
+                </h:panelGroup>
+            </p> -->
+            
+            <p>
+                <h:panelGroup layout="block">
+                    <h:outputLabel value="Doctor name:-" for="doctor"/>
+
+                    <h:selectOneMenu 
+                        id="doctor"
+                        converter="doctorConverter"
+                        readonly="#{cc.attrs.operation.equalsIgnoreCase('view') or cc.attrs.operation.equalsIgnoreCase('delete')}"
+                        disabled="#{cc.attrs.operation.equalsIgnoreCase('view') or cc.attrs.operation.equalsIgnoreCase('delete')}"
+                        value="#{cc.attrs.appointment.doctor}">
+                       
+                        <f:selectItems var="d" 
+                                       value="#{doctorService.findAll()}"
+                                       itemLabel="#{d.name}"
+                                       itemValue="#{d}" />
+
+                    </h:selectOneMenu>
+                    <h:message for="doctor" errorStyle="color: red" infoStyle="color: green"/>
+                </h:panelGroup>
+            </p>
+                        
+            <h:commandButton 
+                rendered="#{cc.attrs.operation.equalsIgnoreCase('create')}"
+                value="Schedule Appointment" 
+                action="#{cc.attrs.action}" />
+
+            <h:commandButton 
+                rendered="#{cc.attrs.operation.equalsIgnoreCase('edit')}"
+                value="Change Appointment" 
+                action="#{cc.attrs.action}" />
+
+            <h:commandButton 
+                rendered="#{cc.attrs.operation.equalsIgnoreCase('delete')}"
+                value="Cancel Appointment" 
+                action="#{cc.attrs.action}" />
+        </h:form>
+        
+    </cc:implementation>
+    
+</html>

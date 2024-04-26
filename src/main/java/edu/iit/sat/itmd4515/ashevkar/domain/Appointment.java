@@ -45,41 +45,25 @@ public class Appointment extends AbstractEntity{
     @JoinColumn(name = "DOCTOR_ID")
     private Doctor doctor;
 
-    /**
-     * Get the value of doctor
-     *
-     * @return the value of doctor
-     */
+    
     public Doctor getDoctor() {
         return doctor;
     }
 
-    /**
-     * Set the value of doctor
-     *
-     * @param doctor new value of doctor
-     */
+    
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
     
-    /**
-     * Get the value of patient
-     *
-     * @return the value of patient
-     */
+    
     public Patient getPatient() {
         return patient;
     }
-    /**
-     * Set the value of patient
-     *
-     * @param patient new value of patient
-     */
+    
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
-
+    
     public Appointment(LocalDate date, LocalTime time) {
         this.date = date;
         this.time = time;
@@ -106,7 +90,7 @@ public class Appointment extends AbstractEntity{
         }
         if(this.doctor.getAppointments().contains(this)){
             this.doctor.getAppointments().remove(this);
-        }
+        }     
     }
 
     @Override
@@ -142,41 +126,25 @@ public class Appointment extends AbstractEntity{
     }
 
     
-    /**
-     * Get the value of date
-     *
-     * @return the value of date
-     */
+    
     public LocalDate getDate() {
         return date;
     }
 
-    /**
-     * Set the value of date
-     *
-     * @param date new value of date
-     */
+    
     public void setDate(LocalDate date) {
         this.date = date;
     }
 
-     /**
-     * Get the value of time
-     *
-     * @return the value of time
-     */
+    
     public LocalTime getTime() {
         return time;
     }
 
-    /**
-     * Set the value of time
-     *
-     * @param time new value of time
-     */
+    
     public void setTime(LocalTime time) {
         this.time = time;
     }
-    
-    
+
+       
 }

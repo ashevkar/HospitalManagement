@@ -4,7 +4,9 @@
  */
 package edu.iit.sat.itmd4515.ashevkar.web;
 
+import edu.iit.sat.itmd4515.ashevkar.domain.Hospital;
 import edu.iit.sat.itmd4515.ashevkar.domain.Patient;
+import edu.iit.sat.itmd4515.ashevkar.service.HospitalService;
 import edu.iit.sat.itmd4515.ashevkar.service.PatientService;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
@@ -24,16 +26,20 @@ public class WelcomePatientController {
     private static final Logger LOG = Logger.getLogger(WelcomePatientController.class.getName());
 
     @EJB PatientService patientSvc;
+    @EJB HospitalService hospitalSvc;
     @Inject LoginController loginController;
     
     private Patient patient;
+    private Hospital hospital;
     
     public WelcomePatientController() {
     }
     @PostConstruct
     private void postConstruct(){
-        
-           patient =patientSvc.findByUsername(loginController.getAuthenticatedUser());         
+        patient = new Patient();
+        LOG.info("WelcomePatientController.postConstruct");
+
+        patient =patientSvc.findByUsername(loginController.getAuthenticatedUser());  
     }
 
     public Patient getPatient() {
@@ -43,4 +49,7 @@ public class WelcomePatientController {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
+    
+    
+    
 }

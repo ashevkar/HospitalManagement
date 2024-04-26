@@ -61,6 +61,9 @@ public class LoginController {
     public boolean isAdmin(){
         return securityContext.isCallerInRole("ADMIN_ROLE");
     }
+    public boolean isDoctor(){
+        return securityContext.isCallerInRole("DOCTOR_ROLE");
+    }
 
     public String doLogin() {
         LOG.info("LoginController.doLogin");

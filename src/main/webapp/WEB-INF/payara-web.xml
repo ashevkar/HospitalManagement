@@ -5,19 +5,17 @@
     <role-name>ADMIN_ROLE</role-name>
     <group-name>ADMIN_GROUP</group-name>
   </security-role-mapping>
-  
   <security-role-mapping>
     <role-name>HOSPITAL_ROLE</role-name>
     <group-name>HOSPITAL_GROUP</group-name>
   </security-role-mapping>
-  
   <security-role-mapping>
     <role-name>PATIENT_ROLE</role-name>
     <group-name>PATIENT_GROUP</group-name>
   </security-role-mapping>
-  
- 
-  
-  
+   <security-role-mapping>
+    <role-name>DOCTOR_ROLE</role-name>
+    <group-name>DOCTOR_GROUP</group-name>
+  </security-role-mapping>
   <class-loader delegate="true"/>
 </payara-web-app>

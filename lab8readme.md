@@ -26,3 +26,5 @@ Username: hospital3, Password:hospital3
 Username: admin, Password:admin
 
 Username: patient1, Password:patient1
+
+Username: doctor1, Password:doctor1

@@ -28,4 +28,12 @@ public class PatientService extends AbstractService<Patient>{
     public Patient findByUsername(String username){
         return em.createNamedQuery("Patient.findByUsername",Patient.class).setParameter("uname", username).getSingleResult();
     }   
+    public void editPatient(Patient p){
+        Patient managedRef = em.getReference(Patient.class, p.getId());
+        managedRef.setName(p.getName());
+        managedRef.setBirthDate(p.getBirthDate());
+        managedRef.setGender(p.getGender());
+        
+        em.merge(managedRef);
+    }
 }

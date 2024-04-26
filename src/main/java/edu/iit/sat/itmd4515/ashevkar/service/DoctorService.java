@@ -6,12 +6,14 @@ package edu.iit.sat.itmd4515.ashevkar.service;
 
 import edu.iit.sat.itmd4515.ashevkar.domain.Doctor;
 import jakarta.ejb.Stateless;
+import jakarta.inject.Named;
 import java.util.List;
 
 /**
  *
  * @author ashevkar
  */
+@Named
 @Stateless
 public class DoctorService extends AbstractService<Doctor>{   
 
@@ -23,4 +25,8 @@ public class DoctorService extends AbstractService<Doctor>{
     public List<Doctor> findAll(){
         return super.findAll("Doctor.findAll");
     }
+    
+     public Doctor findByUsername(String username){
+        return em.createNamedQuery("Doctor.findByUsername",Doctor.class).setParameter("uname", username).getSingleResult();
+    } 
 }

@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="jakarta.faces.passthrough"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="operation" required="true" type="java.lang.String" />
+        <cc:attribute name="patient" type="edu.iit.sat.itmd4515.ashevkar.domain.Patient" required="true"/>
+        <cc:attribute name="action" required="false" method-signature="java.lang.String action()" />
+
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+    
+        <h:form>
+            
+            <p>
+                <h:panelGroup layout="block" rendered="#{not cc.attrs.operation.equalsIgnoreCase('create')}">
+                    <h:outputLabel value="Patient ID :- #{cc.attrs.patient.id} " for="patientId" />
+                    <h:inputHidden id="patientId" value="#{cc.attrs.patient.id}" />
+                    <h:message for="patientId" errorStyle="color: red" infoStyle="color: green"/>
+                </h:panelGroup>
+            </p>
+
+            <p>
+                <h:panelGroup layout="block">
+                    <h:outputLabel value="Patient's Name :- " for="patientName" />
+                    <h:inputText 
+                                readonly="#{cc.attrs.operation.equalsIgnoreCase('view') or cc.attrs.operation.equalsIgnoreCase('delete') }" 
+                                id="patientName" 
+                                value="#{cc.attrs.patient.name}" />
+                    <h:message for="patientName" errorStyle="color: red" infoStyle="color: green"/>
+                </h:panelGroup>
+            </p>
+
+            <p>
+                <h:panelGroup layout="block">
+                    <h:outputLabel value="Patient's Birthdate :- " for="BirthDate"/>
+                    <h:inputText readonly="#{cc.attrs.operation.equalsIgnoreCase('view') or cc.attrs.operation.equalsIgnoreCase('delete') }" 
+                        p:type="date" id="BirthDate" value="#{cc.attrs.patient.birthDate}">
+                        <f:convertDateTime type="localDate" pattern="yyyy-MM-dd" />
+                    </h:inputText>
+                    <h:message for="BirthDate" errorStyle="color: red" infoStyle="color: green"/>
+                </h:panelGroup>
+            </p>
+            
+            <p>
+                <h:panelGroup layout="block">
+                    <h:outputLabel value="Patient's Gender :- " for="PatientGender"/>
+                    <h:selectOneMenu 
+                        readonly="#{cc.attrs.operation.equalsIgnoreCase('view') or cc.attrs.operation.equalsIgnoreCase('delete') }" 
+                        disabled="#{cc.attrs.operation.equalsIgnoreCase('view') or cc.attrs.operation.equalsIgnoreCase('delete') }" 
+                        value="#{cc.attrs.patient.gender}">
+                        <f:selectItems var="patientGender" 
+                                       value="#{patientController.patientGender}"
+                                       itemLabel="#{patientGender.label}"
+                                       itemValue="#{patientGender}" />
+
+                    </h:selectOneMenu>
+
+                </h:panelGroup>
+            </p>
+            
+            <h:commandButton 
+                rendered="#{cc.attrs.operation.equalsIgnoreCase('create')}"
+                value="Create A New Patient" 
+                action="#{cc.attrs.action}" />
+
+            <h:commandButton 
+                rendered="#{cc.attrs.operation.equalsIgnoreCase('edit')}"
+                value="Edit Patient" 
+                action="#{cc.attrs.action}" />
+
+            <h:commandButton 
+                rendered="#{cc.attrs.operation.equalsIgnoreCase('delete')}"
+                value="Delete Patient" 
+                action="#{cc.attrs.action}" />
+        </h:form>
+        
+    </cc:implementation>
+    
+</html>

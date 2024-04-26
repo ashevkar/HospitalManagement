@@ -36,6 +36,10 @@ public class WelcomeController {
         hospital =hospitalSvc.findByUsername(loginController.getAuthenticatedUser());
            
     }
+    public void refreshModel(){
+        hospital =hospitalSvc.findByUsername(loginController.getAuthenticatedUser());
+    }
+    
     public Hospital getHospital() {
         return hospital;
     }

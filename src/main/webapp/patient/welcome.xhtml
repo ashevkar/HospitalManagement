@@ -39,7 +39,63 @@
                     <h:outputText value="#{hospital.name}"/>    
                 </ui:repeat>
             </h:column>
+             
+            <h:column>
+                <h:form>
+                    <h:commandButton value="view" action="#{patientController.viewPatientPage(patient)}" />
+                    <h:commandButton value="edit" action="#{patientController.editPatientPage(patient)}" />
+                    <h:commandButton value="delete" action="#{patientController.deletePatientPage(patient)}" />
+
+                    <h:commandButton value="Schedule Appointment" action="#{patientAppointmentController.scheduleAppointmentPage(patient)}" />
+
+                </h:form>
+            </h:column>
                       
+        </h:dataTable>
+
+            <!--Appointment-->
+            <h:dataTable 
+            styleClass="table table-hover table-bordered"
+            value="#{welcomePatientController.patient.appointments}" var="appointment">
+
+            <h:column>
+                <f:facet name="header">Appointment Id</f:facet>
+                <h:outputText value="#{appointment.id}"/>   
+            </h:column> 
+                
+            <h:column>
+                <f:facet name="header">Appointment  Date</f:facet>
+                <h:outputText value="#{appointment.date}">  
+                <f:convertDateTime type="localDate" dateStyle="full"/>
+                </h:outputText>
+            </h:column>
+                
+            <h:column>
+                <f:facet name="header">Appointment  Time</f:facet>
+                <h:outputText value="#{appointment.time}">  
+                <f:convertDateTime type="localTime" dateStyle="full"/>
+                </h:outputText>
+            </h:column>         
+                        
+            <h:column>
+                <f:facet name="header"> Doctor name </f:facet>
+                <h:outputText value="#{appointment.doctor.name}"/>            
+            </h:column>
+            
+             <h:column>
+                <f:facet name="header"> Patient name</f:facet>
+                <h:outputText value="#{appointment.patient.name}"/>
+            </h:column>
+            
+            <h:column>
+                <h:form>
+                    <h:commandButton value="view" action="#{patientAppointmentController.viewAppointmentPage(appointment)}" />
+                    <h:commandButton value="edit" action="#{patientAppointmentController.editAppointmentPage(appointment)}" />
+                    <h:commandButton value="delete" action="#{patientAppointmentController.deleteAppointmentPage(appointment)}" />
+
+                </h:form>
+            </h:column>
+                       
         </h:dataTable>
         
     </ui:define>

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../WEB-INF/templates/authenticatedTemplate.xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core">
+
+    <ui:define name="title">
+        Doctor
+    </ui:define>
+
+        <ui:define name="content">
+        Welcome #{loginController.authenticatedUser}! to the Doctor section application
+        
+        <h:link outcome="/doctor/scheduleAppointment.xhtml" value="Schedule Appointment" />
+
+        <h:dataTable 
+            styleClass="table table-hover table-bordered"
+            value="#{welcomeDoctorController.doctor.appointments}" var="appointment">
+          
+            <h:column>
+                <f:facet name="header">Appointment Id</f:facet>
+                <h:outputText value="#{appointment.id}"/>   
+            </h:column> 
+                
+            <h:column>
+                <f:facet name="header">Appointment  Date</f:facet>
+                <h:outputText value="#{appointment.date}">  
+                <f:convertDateTime type="localDate" dateStyle="full"/>
+                </h:outputText>
+            </h:column>
+                
+            <h:column>
+                <f:facet name="header">Appointment  Time</f:facet>
+                <h:outputText value="#{appointment.time}">  
+                <f:convertDateTime type="localTime" dateStyle="full"/>
+                </h:outputText>
+            </h:column>         
+                        
+            <h:column>
+                <f:facet name="header"> Doctor name </f:facet>
+                <h:outputText value="#{appointment.doctor.name}"/>            
+            </h:column>
+            
+             <h:column>
+                <f:facet name="header"> Patient name</f:facet>
+                <h:outputText value="#{appointment.patient.name}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header"> Hospital name</f:facet>
+                <h:outputText value="#{appointment.doctor.hospital.name}"/>
+            </h:column>
+            
+            <h:column>
+                <h:form>
+                    <h:commandButton value="view" action="#{doctorAppointmentController.viewAppointmentPage(appointment)}" />
+                    <h:commandButton value="edit" action="#{doctorAppointmentController.editAppointmentPage(appointment)}" />
+                    <h:commandButton value="delete" action="#{doctorAppointmentController.deleteAppointmentPage(appointment)}" />
+
+
+                </h:form>
+            </h:column>
+                                 
+        </h:dataTable>
+        
+    </ui:define>
+
+</ui:composition>

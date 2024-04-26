@@ -59,4 +59,5 @@ public class HospitalService extends AbstractService<Hospital>{
         hospitalRef.addPatient(patient);
         em.merge(hospitalRef);
     }
+    
 }

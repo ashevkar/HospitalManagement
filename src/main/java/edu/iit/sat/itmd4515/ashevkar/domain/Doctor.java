@@ -4,6 +4,7 @@
  */
 package edu.iit.sat.itmd4515.ashevkar.domain;
 
+import edu.iit.sat.itmd4515.ashevkar.security.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +25,8 @@ import java.util.Objects;
  */
 @Entity
 @NamedQuery(name = "Doctor.findAll", query = "select d from Doctor d")
+@NamedQuery(name = "Doctor.findByUsername", query = "select d from Doctor d where d.user.userName= :uname")
+
 public class Doctor {
 //    serves as the primary key.
     @Id         
@@ -57,7 +60,14 @@ public class Doctor {
     @OneToMany(mappedBy= "doctor")
     private List<Appointment> appointments = new ArrayList<>();
     
-    
+    private User user;
+
+    public User getUser() {
+        return user;
+    } 
+    public void setUser(User user) {
+        this.user = user;
+    }
     /**
      * Get the value of appointments
      *

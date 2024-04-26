@@ -52,6 +52,15 @@
             </li>
             </ui:fragment>
 
+            <ui:fragment rendered="#{loginController.doctor}">            
+            <li class="nav-item">
+                <h:link 
+                    styleClass="#{fn:startsWith(view.viewId,'/doctor') ? 'nav-link active' : 'nav-link'}" 
+                    outcome="/doctor/welcome.xhtml" 
+                    value="Doctor"/>
+            </li>
+            </ui:fragment>
+            
             <ui:fragment rendered="#{loginController.admin}">                        
             <li class="nav-item">
                 <h:link 

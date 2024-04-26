@@ -16,7 +16,7 @@ import jakarta.security.enterprise.authentication.mechanism.http.LoginToContinue
  */
 @Named
 @ApplicationScoped
-@DeclareRoles({"ADMIN_ROLE","HOSPITAL_ROLE","PATIENT_ROLE"})
+@DeclareRoles({"ADMIN_ROLE","HOSPITAL_ROLE","PATIENT_ROLE","DOCTOR_ROLE"})
 @CustomFormAuthenticationMechanismDefinition(
         loginToContinue = @LoginToContinue(
                 loginPage= "/login.xhtml",
